@@ -10,5 +10,17 @@ class AnimalsController < ApplicationController
         render json: animal
     end
 
+    def create
+        animal = Animal.create(animal_params)
+        if animal.valid?
+            render json: animal
+        else
+            render json: animal.errors
+        end
+    end
 
+    private
+    def animal_params
+    params.require(:animal).permit(:commonName, :scientificBinomial)
+    end
 end
